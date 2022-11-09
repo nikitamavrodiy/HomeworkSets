@@ -34,7 +34,6 @@ public class Main {
         System.out.println("В последнем задании ответ HashSet. " +
                 "В коллекции HashSet метод contains на самом деле сравнивает хэш-коды," +
                 " , что намного быстрее.");
-
     }
 
     private static void numberSetRemoveEven() {
