@@ -1,3 +1,6 @@
+import multiply.MultiplicationTable;
+import multiply.Task;
+import passport.Passport;
 import products.Product;
 import products.ProductsList;
 import products.Recipe;
@@ -12,18 +15,26 @@ public class Main {
         Product banana = new Product("бананы", 550, 1.5);
         Product apples = new Product("яблоки", 700, 1.9);
         Product pears = new Product("груши", 900, 1.2);
-
         ProductsList productsList1 = new ProductsList("productList1");
         productsList1.addProduct(banana, apples);
         productsList1.checkProduct("бананы");
         productsList1.removeProduct(apples);
-        System.out.println(productsList1);
+//        System.out.println(productsList1);
 
         Recipe recipe1 = new Recipe("Рецепт салата", pears);
         recipe1.addProductList(productsList1);
-        System.out.println(recipe1);
+//        System.out.println(recipe1);
+//        numberSetRemoveEven();
 
-        numberSetRemoveEven();
+        MultiplicationTable multiplicationTable = new MultiplicationTable();
+//        System.out.println(multiplicationTable);
+
+//        Passport passport1 = new Passport(2412, "Medvedev", "Maksim", "Alekseevich", null);
+
+        System.out.println("В последнем задании ответ HashSet. " +
+                "В коллекции HashSet метод contains на самом деле сравнивает хэш-коды," +
+                " , что намного быстрее.");
+
     }
 
     private static void numberSetRemoveEven() {
