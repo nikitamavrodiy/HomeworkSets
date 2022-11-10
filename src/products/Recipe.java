@@ -4,47 +4,46 @@ import java.util.*;
 
 public class Recipe {
     public final static Set<Recipe> allRecipes = new HashSet<>();
-    private final Set<Product> productsSet = new HashSet<>();
+    private final Map<Product, Integer> productsSet = new HashMap<>();
     private final String recipeName;
 
     public Recipe(String recipeName, Product... products) {
         this.recipeName = recipeName;
-        addProduct(products);
+        addProductOrUpdate(products);
         if (allRecipes.contains(this)) {
             throw new RuntimeException("Рецепты не могут иметь одинаковое название");
         }
         allRecipes.add(this);
     }
 
-    public void addProductList(ProductsList productsList) {
-        productsSet.addAll(productsList.getProductsSet());
-
+    public void addProductOrUpdate(Product... products) {
+        this.addProductOrUpdate(1, products);
     }
-
-    public void addProduct(Product... products) {
+    public void addProductOrUpdate(int count, Product... products) {
         for (Product product : products) {
-            if (this.productsSet.contains(product)) {
-                throw new RuntimeException("Этот продукт уже есть в списке!");
-            } else {
-                this.productsSet.add(product);
-            }
+            this.productsSet.put(product, count);
         }
-    }
-
-    public Set<Product> getProductsSet() {
-        return productsSet;
     }
 
     public int getTotalPrice() {
         int sum = 0;
-        for (Product product : productsSet) {
-            sum += product.getPrice();
+        for (Map.Entry<Product, Integer> entry : productsSet.entrySet()) {
+            sum += entry.getKey().getPrice() * entry.getValue();
         }
         return sum;
     }
 
     public String getRecipeName() {
-        return recipeName;
+            return recipeName;
+    }
+
+    public String getProductsSet() {
+        StringBuilder builder = new StringBuilder();
+        for (Map.Entry<Product, Integer> entry : this.productsSet.entrySet()) {
+            builder.append(entry.getKey()).append(" --> ").append(entry.getValue()).append(",\n");
+        }
+        builder.append("TotalPrice = " + getTotalPrice() + " ,");
+        return String.valueOf(builder);
     }
 
     @Override
@@ -68,3 +67,5 @@ public class Recipe {
                 '}';
     }
 }
+
+
