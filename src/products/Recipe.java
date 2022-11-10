@@ -10,16 +10,25 @@ public class Recipe {
     public Recipe(String recipeName, Product... products) {
         this.recipeName = recipeName;
         addProduct(products);
+        if (allRecipes.contains(this)) {
+            throw new RuntimeException("Рецепты не могут иметь одинаковое название");
+        }
         allRecipes.add(this);
     }
 
     public void addProductList(ProductsList productsList) {
         productsSet.addAll(productsList.getProductsSet());
+
     }
 
     public void addProduct(Product... products) {
-        Collections.addAll(productsSet, products);
-
+        for (Product product : products) {
+            if (this.productsSet.contains(product)) {
+                throw new RuntimeException("Этот продукт уже есть в списке!");
+            } else {
+                this.productsSet.add(product);
+            }
+        }
     }
 
     public Set<Product> getProductsSet() {
@@ -43,10 +52,7 @@ public class Recipe {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Recipe recipe = (Recipe) o;
-        if (Objects.equals(recipeName, recipe.recipeName)) {
-            throw new RuntimeException("Рецепты не могут иметь одинаковое название");
-        }
-        return false;
+        return Objects.equals(recipeName, recipe.recipeName);
     }
 
     @Override

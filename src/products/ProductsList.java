@@ -14,7 +14,13 @@ public class ProductsList {
     }
 
     public void addProduct(Product... products) {
-        Collections.addAll(productsSet, products);
+        for (Product product : products) {
+            if (this.productsSet.contains(product)) {
+                throw new RuntimeException("Этот продукт уже есть в списке!");
+            } else {
+                this.productsSet.add(product);
+            }
+        }
     }
 
     public void checkProduct(String name) {
